@@ -14,4 +14,14 @@ abstract class BaseFragment : Fragment() {
         get() = AppDatabase.getDatabase(requireActivity())
 
     protected val sharedViewModel: ToBuyViewModel by activityViewModels()
+
+    // region Navigation helper methods
+    protected fun navigateUp() {
+        mainActivity.navController.navigateUp()
+    }
+
+    protected fun navigateViaNavGraph(actionId: Int) {
+        mainActivity.navController.navigate(actionId)
+    }
+    // endregion Navigation helper methods
 }

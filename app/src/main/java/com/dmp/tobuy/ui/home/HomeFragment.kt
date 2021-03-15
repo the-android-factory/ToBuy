@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.dmp.tobuy.R
+import com.dmp.tobuy.database.entity.ItemEntity
 import com.dmp.tobuy.databinding.FragmentHomeBinding
 import com.dmp.tobuy.ui.BaseFragment
 
-class HomeFragment: BaseFragment() {
+class HomeFragment: BaseFragment(), ItemEntityInterface {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -20,9 +22,24 @@ class HomeFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedViewModel.itemEntitiesLiveData.observe(viewLifecycleOwner) { itemEntityList ->
-            // todo
+        binding.fab.setOnClickListener {
+            navigateViaNavGraph(R.id.action_homeFragment_to_addItemEntityFragment)
         }
+
+        val controller = HomeEpoxyController(this)
+        binding.epoxyRecyclerView.setController(controller)
+
+        sharedViewModel.itemEntitiesLiveData.observe(viewLifecycleOwner) { itemEntityList ->
+            controller.itemEntityList = itemEntityList as ArrayList<ItemEntity>
+        }
+    }
+
+    override fun onDeleteItemEntity(itemEntity: ItemEntity) {
+        // todo implement me!
+    }
+
+    override fun onBumpPriority(itemEntity: ItemEntity) {
+        // todo implement me!
     }
 
     override fun onDestroyView() {
