@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmp.tobuy.database.AppDatabase
 import com.dmp.tobuy.database.entity.ItemEntity
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ToBuyViewModel : ViewModel() {
@@ -17,8 +18,9 @@ class ToBuyViewModel : ViewModel() {
         repository = ToBuyRepository(appDatabase)
 
         viewModelScope.launch {
-            val items = repository.getAllItems()
-            itemEntitiesLiveData.postValue(items)
+            repository.getAllItems().collect { items ->
+                itemEntitiesLiveData.postValue(items)
+            }
         }
     }
 
