@@ -61,10 +61,6 @@ class HomeEpoxyController(
                 descriptionTextView.text = itemEntity.description
             }
 
-            deleteImageView.setOnClickListener {
-                itemEntityInterface.onDeleteItemEntity(itemEntity)
-            }
-
             priorityTextView.setOnClickListener {
                 itemEntityInterface.onBumpPriority(itemEntity)
             }

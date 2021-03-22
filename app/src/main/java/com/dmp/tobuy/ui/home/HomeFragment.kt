@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.airbnb.epoxy.EpoxyTouchHelper
 import com.dmp.tobuy.R
 import com.dmp.tobuy.database.entity.ItemEntity
 import com.dmp.tobuy.databinding.FragmentHomeBinding
@@ -36,15 +37,28 @@ class HomeFragment : BaseFragment(), ItemEntityInterface {
         sharedViewModel.itemEntitiesLiveData.observe(viewLifecycleOwner) { itemEntityList ->
             controller.itemEntityList = itemEntityList as ArrayList<ItemEntity>
         }
+
+        // Setup swipe-to-delete
+        EpoxyTouchHelper.initSwiping(binding.epoxyRecyclerView)
+            .right()
+            .withTarget(HomeEpoxyController.ItemEntityEpoxyModel::class.java)
+            .andCallbacks(object :
+                EpoxyTouchHelper.SwipeCallbacks<HomeEpoxyController.ItemEntityEpoxyModel>() {
+                override fun onSwipeCompleted(
+                    model: HomeEpoxyController.ItemEntityEpoxyModel?,
+                    itemView: View?,
+                    position: Int,
+                    direction: Int
+                ) {
+                    val itemThatWasRemoved = model?.itemEntity ?: return
+                    sharedViewModel.deleteItem(itemThatWasRemoved)
+                }
+            })
     }
 
     override fun onResume() {
         super.onResume()
         mainActivity.hideKeyboard(requireView())
-    }
-
-    override fun onDeleteItemEntity(itemEntity: ItemEntity) {
-        sharedViewModel.deleteItem(itemEntity)
     }
 
     override fun onBumpPriority(itemEntity: ItemEntity) {
