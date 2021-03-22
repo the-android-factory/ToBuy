@@ -9,12 +9,16 @@ import com.dmp.tobuy.database.entity.ItemEntity
 import com.dmp.tobuy.databinding.FragmentHomeBinding
 import com.dmp.tobuy.ui.BaseFragment
 
-class HomeFragment: BaseFragment(), ItemEntityInterface {
+class HomeFragment : BaseFragment(), ItemEntityInterface {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -32,6 +36,11 @@ class HomeFragment: BaseFragment(), ItemEntityInterface {
         sharedViewModel.itemEntitiesLiveData.observe(viewLifecycleOwner) { itemEntityList ->
             controller.itemEntityList = itemEntityList as ArrayList<ItemEntity>
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mainActivity.hideKeyboard(requireView())
     }
 
     override fun onDeleteItemEntity(itemEntity: ItemEntity) {

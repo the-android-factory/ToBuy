@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.dmp.tobuy.R
 import com.dmp.tobuy.database.entity.ItemEntity
 import com.dmp.tobuy.databinding.FragmentAddItemEntityBinding
@@ -30,10 +31,31 @@ class AddItemEntityFragment : BaseFragment() {
         binding.saveButton.setOnClickListener {
             saveItemEntityToDatabase()
         }
+
+        sharedViewModel.transactionCompleteLiveData.observe(viewLifecycleOwner) { complete ->
+            if (complete) {
+                Toast.makeText(requireActivity(), "Item saved!", Toast.LENGTH_SHORT).show()
+                binding.titleEditText.text = null
+                binding.titleEditText.requestFocus()
+                mainActivity.showKeyboard()
+
+                binding.descriptionEditText.text = null
+                binding.radioGroup.check(R.id.radioButtonLow)
+            }
+        }
+
+        // Show keyboard and default select our Title EditText
+        mainActivity.showKeyboard()
+        binding.titleEditText.requestFocus()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sharedViewModel.transactionCompleteLiveData.postValue(false)
     }
 
     private fun saveItemEntityToDatabase() {
-        val itemTitle = binding.titleEditTet.text.toString().trim()
+        val itemTitle = binding.titleEditText.text.toString().trim()
         if (itemTitle.isEmpty()) {
             binding.titleTextField.error = "* Required field"
             return
@@ -41,7 +63,7 @@ class AddItemEntityFragment : BaseFragment() {
 
         binding.titleTextField.error = null
 
-        val itemDescription = binding.descriptionEditTet.text.toString().trim()
+        val itemDescription = binding.descriptionEditText.text.toString().trim()
         val itemPriority = when (binding.radioGroup.checkedRadioButtonId) {
             R.id.radioButtonLow -> 1
             R.id.radioButtonMedium -> 2
