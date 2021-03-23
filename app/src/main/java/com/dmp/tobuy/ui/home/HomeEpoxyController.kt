@@ -1,18 +1,20 @@
 package com.dmp.tobuy.ui.home
 
+import android.content.res.ColorStateList
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyController
 import com.dmp.tobuy.R
 import com.dmp.tobuy.database.entity.ItemEntity
+import com.dmp.tobuy.databinding.ModelEmptyStateBinding
 import com.dmp.tobuy.databinding.ModelItemEntityBinding
 import com.dmp.tobuy.ui.epoxy.LoadingEpoxyModel
 import com.dmp.tobuy.ui.epoxy.ViewBindingKotlinModel
 
 class HomeEpoxyController(
     private val itemEntityInterface: ItemEntityInterface
-): EpoxyController() {
+) : EpoxyController() {
 
     var isLoading: Boolean = true
         set(value) {
@@ -37,7 +39,7 @@ class HomeEpoxyController(
         }
 
         if (itemEntityList.isEmpty()) {
-            // todo empty state
+            EmptyStateEpoxyModel().id("empty_state").addTo(this)
             return
         }
 
@@ -49,7 +51,7 @@ class HomeEpoxyController(
     data class ItemEntityEpoxyModel(
         val itemEntity: ItemEntity,
         val itemEntityInterface: ItemEntityInterface
-    ): ViewBindingKotlinModel<ModelItemEntityBinding>(R.layout.model_item_entity) {
+    ) : ViewBindingKotlinModel<ModelItemEntityBinding>(R.layout.model_item_entity) {
 
         override fun ModelItemEntityBinding.bind() {
             titleTextView.text = itemEntity.title
@@ -72,7 +74,16 @@ class HomeEpoxyController(
                 else -> R.color.purple_700
             }
 
-            priorityTextView.setBackgroundColor(ContextCompat.getColor(root.context, colorRes))
+            val color = ContextCompat.getColor(root.context, colorRes)
+            priorityTextView.setBackgroundColor(color)
+            root.setStrokeColor(ColorStateList.valueOf(color))
+        }
+    }
+
+    class EmptyStateEpoxyModel :
+        ViewBindingKotlinModel<ModelEmptyStateBinding>(R.layout.model_empty_state) {
+        override fun ModelEmptyStateBinding.bind() {
+            // Nothing to do at the moment
         }
     }
 }
