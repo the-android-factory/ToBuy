@@ -8,6 +8,7 @@ import com.airbnb.epoxy.EpoxyController
 import com.dmp.tobuy.R
 import com.dmp.tobuy.database.entity.ItemEntity
 import com.dmp.tobuy.databinding.ModelEmptyStateBinding
+import com.dmp.tobuy.databinding.ModelHeaderItemBinding
 import com.dmp.tobuy.databinding.ModelItemEntityBinding
 import com.dmp.tobuy.ui.epoxy.LoadingEpoxyModel
 import com.dmp.tobuy.ui.epoxy.ViewBindingKotlinModel
@@ -43,8 +44,25 @@ class HomeEpoxyController(
             return
         }
 
-        itemEntityList.forEach { item ->
+        var currentPriority: Int = -1
+        itemEntityList.sortedByDescending {
+            it.priority
+        }.forEach { item ->
+            if (item.priority != currentPriority) {
+                currentPriority = item.priority
+                val text = getHeaderTextForPriority(currentPriority)
+                HeaderEpoxyModel(text).id(text).addTo(this)
+            }
+
             ItemEntityEpoxyModel(item, itemEntityInterface).id(item.id).addTo(this)
+        }
+    }
+
+    private fun getHeaderTextForPriority(priority: Int): String {
+        return when (priority) {
+            1 -> "Low"
+            2 -> "Medium"
+            else -> "High"
         }
     }
 
@@ -84,6 +102,15 @@ class HomeEpoxyController(
         ViewBindingKotlinModel<ModelEmptyStateBinding>(R.layout.model_empty_state) {
         override fun ModelEmptyStateBinding.bind() {
             // Nothing to do at the moment
+        }
+    }
+
+    data class HeaderEpoxyModel(
+        val headerText: String
+    ): ViewBindingKotlinModel<ModelHeaderItemBinding>(R.layout.model_header_item) {
+
+        override fun ModelHeaderItemBinding.bind() {
+            textView.text = headerText
         }
     }
 }
