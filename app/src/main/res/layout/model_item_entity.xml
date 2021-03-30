@@ -10,7 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:minHeight="55dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/titleTextView"
@@ -54,7 +55,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:background="@color/teal_700" />
+            tools:background="@color/blue_gray_700" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
