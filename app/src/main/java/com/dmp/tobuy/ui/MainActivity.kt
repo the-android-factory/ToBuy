@@ -9,11 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.dmp.tobuy.R
 import com.dmp.tobuy.arch.ToBuyViewModel
 import com.dmp.tobuy.database.AppDatabase
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,8 +33,17 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        // Define top-level Fragments
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.profileFragment))
+
+        // Setup top app bar
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // Setup bottom nav bar
+        setupWithNavController(
+            findViewById<BottomNavigationView>(R.id.bottomNavigation),
+            navHostFragment.navController
+        )
     }
 
     override fun onSupportNavigateUp(): Boolean {

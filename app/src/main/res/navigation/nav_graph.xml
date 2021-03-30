@@ -17,6 +17,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.dmp.tobuy.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
         android:id="@+id/addItemEntityFragment"
         android:name="com.dmp.tobuy.ui.add.AddItemEntityFragment"
         android:label="Add"
