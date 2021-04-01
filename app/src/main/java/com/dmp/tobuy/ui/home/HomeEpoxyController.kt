@@ -89,7 +89,7 @@ class HomeEpoxyController(
                 1 -> android.R.color.holo_green_dark
                 2 -> android.R.color.holo_orange_dark
                 3 -> android.R.color.holo_red_dark
-                else -> R.color.blue_gray_700
+                else -> R.color.gray_700
             }
 
             val color = ContextCompat.getColor(root.context, colorRes)

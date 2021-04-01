@@ -4,54 +4,25 @@
     <color name="white">#FFFFFFFF</color>
     <color name="color_accent">#4d342b</color>
 
-    <color name="primaryLightColor">@color/blue_gray_50</color>
-    <color name="primaryColor">@color/blue_gray_500</color>
-    <color name="primaryDarkColor">@color/blue_gray_700</color>
-    <color name="secondaryLightColor">@color/pink_orange_50</color>
-    <color name="secondaryColor">@color/pink_orange_700</color>
-    <color name="secondaryDarkColor">@color/pink_orange_500</color>
+    <color name="primaryLightColor">@color/gray_100</color>
+    <color name="primaryColor">@color/gray_700</color>
+    <color name="primaryDarkColor">@color/gray_800</color>
+    <color name="secondaryLightColor">@color/rustLightColor</color>
+    <color name="secondaryColor">@color/rustColor</color>
+    <color name="secondaryDarkColor">@color/rustDarkColor</color>
 
-    <color name="blue_gray_50">#ECEFF1</color>
-    <color name="blue_gray_100">#CFD8DC</color>
-    <color name="blue_gray_200">#B0BEC5</color>
-    <color name="blue_gray_300">#90A4AE</color>
-    <color name="blue_gray_400">#78909C</color>
-    <color name="blue_gray_500">#607D8B</color>
-    <color name="blue_gray_600">#546E7A</color>
-    <color name="blue_gray_700">#455A64</color>
-    <color name="blue_gray_800">#37474F</color>
-    <color name="blue_gray_900">#263238</color>
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color>
 
-    <color name="pink_orange_50">#fce6e3</color>
-    <color name="pink_orange_100">#ffc4b2</color>
-    <color name="pink_orange_200">#ff9e80</color>
-    <color name="pink_orange_300">#fb774f</color>
-    <color name="pink_orange_400">#f8592a</color>
-    <color name="pink_orange_500">#f43900</color>
-    <color name="pink_orange_600">#e93300</color>
-    <color name="pink_orange_700">#dc2c00</color>
-    <color name="pink_orange_800">#ce2300</color>
-    <color name="pink_orange_900">#b51200</color>
-
-    <!--    <color name="orange_50">#FFF3E0</color>-->
-    <!--    <color name="orange_100">#FFE0B2</color>-->
-    <!--    <color name="orange_200">#FFCC80</color>-->
-    <!--    <color name="orange_300">#FFB74D</color>-->
-    <!--    <color name="orange_400">#FFA726</color>-->
-    <!--    <color name="orange_500">#FF9800</color>-->
-    <!--    <color name="orange_600">#FB8C00</color>-->
-    <!--    <color name="orange_700">#F57C00</color>-->
-    <!--    <color name="orange_800">#EF6C00</color>-->
-    <!--    <color name="orange_900">#E65100</color>-->
-
-    <!--    <color name="brown_50">#EFEBE9</color>-->
-    <!--    <color name="brown_100">#D7CCC8</color>-->
-    <!--    <color name="brown_200">#BCAAA4</color>-->
-    <!--    <color name="brown_300">#A1887F</color>-->
-    <!--    <color name="brown_400">#8D6E63</color>-->
-    <!--    <color name="brown_500">#795548</color>-->
-    <!--    <color name="brown_600">#6D4C41</color>-->
-    <!--    <color name="brown_700">#5D4037</color>-->
-    <!--    <color name="brown_800">#4E342E</color>-->
-    <!--    <color name="brown_900">#3E2723</color>-->
+    <color name="rustColor">#753023</color>
+    <color name="rustLightColor">#a85c4b</color>
+    <color name="rustDarkColor">#450300</color>
 </resources>

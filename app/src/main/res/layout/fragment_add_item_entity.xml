@@ -20,6 +20,7 @@
             android:layout_marginTop="16dp"
             android:hint="Title"
             android:textColorHint="?attr/colorOnBackground"
+            android:theme="@style/ToBuyOutlinedBoxDense"
             app:errorEnabled="true"
             app:hintTextColor="?attr/colorOnBackground"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +44,7 @@
             android:layout_marginTop="8dp"
             android:hint="Description (Optional)"
             android:textColorHint="?attr/colorOnBackground"
+            android:theme="@style/ToBuyOutlinedBoxDense"
             app:hintTextColor="?attr/colorOnBackground"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/titleTextField">
