@@ -8,6 +8,7 @@ import android.widget.SeekBar
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import com.dmp.tobuy.R
+import com.dmp.tobuy.database.entity.CategoryEntity
 import com.dmp.tobuy.database.entity.ItemEntity
 import com.dmp.tobuy.databinding.FragmentAddItemEntityBinding
 import com.dmp.tobuy.ui.BaseFragment
@@ -119,6 +120,15 @@ class AddItemEntityFragment : BaseFragment() {
                     // Whoops
                 }
             }
+        }
+
+        val categoryViewStateEpoxyController = CategoryViewStateEpoxyController { categoryId ->
+            sharedViewModel.onCategorySelected(categoryId)
+        }
+        binding.categoriesEpoxyController.setController(categoryViewStateEpoxyController)
+        sharedViewModel.onCategorySelected(selectedItemEntity?.categoryId ?: CategoryEntity.DEFAULT_CATEGORY_ID)
+        sharedViewModel.categoriesViewStateLiveData.observe(viewLifecycleOwner) { viewState ->
+            categoryViewStateEpoxyController.viewState = viewState
         }
     }
 
