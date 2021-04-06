@@ -16,7 +16,7 @@
         <item name="background">@color/gray_900</item>
         <item name="colorOnBackground">@color/gray_100</item>
         <item name="colorSurface">@color/gray_800</item>
-        <item name="colorOnSurface">@color/white</item>
+        <item name="colorOnSurface">@color/gray_300</item>
     </style>
 
     <style name="ToBuyOutlinedBoxDense" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">

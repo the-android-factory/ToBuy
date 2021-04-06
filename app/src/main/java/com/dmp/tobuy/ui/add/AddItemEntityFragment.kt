@@ -125,8 +125,8 @@ class AddItemEntityFragment : BaseFragment() {
         val categoryViewStateEpoxyController = CategoryViewStateEpoxyController { categoryId ->
             sharedViewModel.onCategorySelected(categoryId)
         }
-        binding.categoriesEpoxyController.setController(categoryViewStateEpoxyController)
-        sharedViewModel.onCategorySelected(selectedItemEntity?.categoryId ?: CategoryEntity.DEFAULT_CATEGORY_ID)
+        binding.categoriesEpoxyRecyclerView.setController(categoryViewStateEpoxyController)
+        sharedViewModel.onCategorySelected(selectedItemEntity?.categoryId ?: CategoryEntity.DEFAULT_CATEGORY_ID, true)
         sharedViewModel.categoriesViewStateLiveData.observe(viewLifecycleOwner) { viewState ->
             categoryViewStateEpoxyController.viewState = viewState
         }
@@ -151,12 +151,14 @@ class AddItemEntityFragment : BaseFragment() {
             R.id.radioButtonHigh -> 3
             else -> 0
         }
+        val itemCategoryId = sharedViewModel.categoriesViewStateLiveData.value?.getSelectedCategoryId() ?: return
 
         if (isInEditMode) {
             val itemEntity = selectedItemEntity!!.copy(
                 title = itemTitle,
                 description = itemDescription,
-                priority = itemPriority
+                priority = itemPriority,
+                categoryId = itemCategoryId
             )
 
             sharedViewModel.updateItem(itemEntity)
@@ -169,7 +171,7 @@ class AddItemEntityFragment : BaseFragment() {
             description = itemDescription,
             priority = itemPriority,
             createdAt = System.currentTimeMillis(),
-            categoryId = "" // todo update this later when we have categories in the app!
+            categoryId = itemCategoryId
         )
 
         sharedViewModel.insertItem(itemEntity)

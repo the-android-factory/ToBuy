@@ -10,7 +10,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clipChildren="false">
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingBottom="24dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/titleTextField"
@@ -85,6 +87,32 @@
             tools:progress="4" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/categoryLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Category"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/priorityLabelTextView"
+            app:layout_constraintTop_toBottomOf="@id/quantitySeekBar" />
+
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/categoriesEpoxyRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            app:itemSpacing="12dp"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/categoryLabelTextView"
+            app:spanCount="2"
+            tools:listitem="@layout/model_category_item_selection" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/priorityLabelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,7 +122,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/quantityLabelTextView"
-            app:layout_constraintTop_toBottomOf="@id/quantitySeekBar" />
+            app:layout_constraintTop_toBottomOf="@id/categoriesEpoxyRecyclerView" />
 
         <RadioGroup
             android:id="@+id/radioGroup"
@@ -133,31 +161,6 @@
 
         </RadioGroup>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/categoryLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Category"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/priorityLabelTextView"
-            app:layout_constraintTop_toBottomOf="@id/radioGroup" />
-
-        <com.airbnb.epoxy.EpoxyRecyclerView
-            android:id="@+id/categoriesEpoxyController"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:orientation="horizontal"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            app:itemSpacing="12dp"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/categoryLabelTextView"
-            app:spanCount="2" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
@@ -166,7 +169,7 @@
             android:layout_marginEnd="16dp"
             android:text="Save"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/categoriesEpoxyController" />
+            app:layout_constraintTop_toBottomOf="@id/radioGroup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
