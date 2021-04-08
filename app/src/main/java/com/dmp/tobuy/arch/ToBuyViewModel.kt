@@ -8,7 +8,6 @@ import com.dmp.tobuy.database.AppDatabase
 import com.dmp.tobuy.database.entity.CategoryEntity
 import com.dmp.tobuy.database.entity.ItemEntity
 import com.dmp.tobuy.database.entity.ItemWithCategoryEntity
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -22,6 +21,13 @@ class ToBuyViewModel : ViewModel() {
 
     val transactionCompleteLiveData = MutableLiveData<Event<Boolean>>()
 
+    // Home page
+    var currentSort: HomeViewState.Sort = HomeViewState.Sort.NONE
+    private val _homeViewStateLiveData = MutableLiveData<HomeViewState>()
+    val homeViewStateLiveData: LiveData<HomeViewState>
+        get() = _homeViewStateLiveData
+
+    // Categories in the Add/Update screen
     private val _categoriesViewStateLiveData = MutableLiveData<CategoriesViewState>()
     val categoriesViewStateLiveData: LiveData<CategoriesViewState>
         get() = _categoriesViewStateLiveData
@@ -39,6 +45,8 @@ class ToBuyViewModel : ViewModel() {
         viewModelScope.launch {
             repository.getAllItemWithCategoryEntities().collect { items ->
                 itemWithCategoryEntitiesLiveData.postValue(items)
+
+                updateHomeViewState(items)
             }
         }
 
@@ -49,6 +57,76 @@ class ToBuyViewModel : ViewModel() {
         }
     }
 
+    private fun updateHomeViewState(items: List<ItemWithCategoryEntity>) {
+
+        val dataList = ArrayList<HomeViewState.DataItem<*>>()
+        when (currentSort) {
+            HomeViewState.Sort.NONE -> {
+                var currentPriority: Int = -1
+                items.sortedByDescending {
+                    it.itemEntity.priority
+                }.forEach { item ->
+                    if (item.itemEntity.priority != currentPriority) {
+                        currentPriority = item.itemEntity.priority
+                        val headerItem = HomeViewState.DataItem(
+                            data = getHeaderTextForPriority(currentPriority),
+                            isHeader = true
+                        )
+
+                        dataList.add(headerItem)
+                    }
+
+                    val dataItem = HomeViewState.DataItem(data = item)
+                    dataList.add(dataItem)
+                }
+            }
+            HomeViewState.Sort.CATEGORY -> {
+                // implement me
+            }
+            HomeViewState.Sort.OLDEST -> {
+                // implement me
+            }
+            HomeViewState.Sort.NEWEST -> {
+                // implement me
+            }
+        }
+
+        _homeViewStateLiveData.postValue(
+            HomeViewState(
+                dataList = dataList,
+                isLoading = false,
+                sort = currentSort
+            )
+        )
+    }
+
+    private fun getHeaderTextForPriority(priority: Int): String {
+        return when (priority) {
+            1 -> "Low"
+            2 -> "Medium"
+            else -> "High"
+        }
+    }
+
+    data class HomeViewState(
+        val dataList: List<DataItem<*>> = emptyList(),
+        val isLoading: Boolean = false,
+        val sort: Sort = Sort.NONE
+    ) {
+        data class DataItem<T>(
+            val data: T,
+            val isHeader: Boolean = false
+        )
+
+        enum class Sort(val displayName: String) {
+            NONE("None"),
+            CATEGORY("Category"),
+            OLDEST("Oldest"),
+            NEWEST("Newest")
+        }
+    }
+
+    // region Category
     fun onCategorySelected(categoryId: String, showLoading: Boolean = false) {
         if (showLoading) {
             val loadingViewState = CategoriesViewState(isLoading = true)
@@ -59,17 +137,21 @@ class ToBuyViewModel : ViewModel() {
         val viewStateItemList = ArrayList<CategoriesViewState.Item>()
 
         // Default category (un-selecting a category)
-        viewStateItemList.add(CategoriesViewState.Item(
-            categoryEntity = CategoryEntity.getDefaultCategory(),
-            isSelected = categoryId == CategoryEntity.DEFAULT_CATEGORY_ID
-        ))
+        viewStateItemList.add(
+            CategoriesViewState.Item(
+                categoryEntity = CategoryEntity.getDefaultCategory(),
+                isSelected = categoryId == CategoryEntity.DEFAULT_CATEGORY_ID
+            )
+        )
 
         // Populate the rest of the list with what we have in the DB
         categories.forEach {
-            viewStateItemList.add(CategoriesViewState.Item(
-                categoryEntity = it,
-                isSelected = it.id == categoryId
-            ))
+            viewStateItemList.add(
+                CategoriesViewState.Item(
+                    categoryEntity = it,
+                    isSelected = it.id == categoryId
+                )
+            )
         }
 
         val viewState = CategoriesViewState(itemList = viewStateItemList)
@@ -86,9 +168,11 @@ class ToBuyViewModel : ViewModel() {
         )
 
         fun getSelectedCategoryId(): String {
-            return itemList.find { it.isSelected }?.categoryEntity?.id ?: CategoryEntity.DEFAULT_CATEGORY_ID
+            return itemList.find { it.isSelected }?.categoryEntity?.id
+                ?: CategoryEntity.DEFAULT_CATEGORY_ID
         }
     }
+    // endregion Category
 
     // region ItemEntity
     fun insertItem(itemEntity: ItemEntity) {
