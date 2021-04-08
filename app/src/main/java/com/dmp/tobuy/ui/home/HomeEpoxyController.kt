@@ -94,11 +94,13 @@ class HomeEpoxyController(
 
             val color = ContextCompat.getColor(root.context, colorRes)
             priorityTextView.setBackgroundColor(color)
-            root.setStrokeColor(ColorStateList.valueOf(color))
 
+            root.setStrokeColor(ColorStateList.valueOf(color))
             root.setOnClickListener {
                 itemEntityInterface.onItemSelected(itemEntity.itemEntity)
             }
+
+            categoryNameTextView.text = itemEntity.categoryEntity?.name
         }
     }
 
