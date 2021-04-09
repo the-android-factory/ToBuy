@@ -23,6 +23,10 @@ class ToBuyViewModel : ViewModel() {
 
     // Home page
     var currentSort: HomeViewState.Sort = HomeViewState.Sort.NONE
+        set(value) {
+            field = value
+            updateHomeViewState(itemWithCategoryEntitiesLiveData.value!!)
+        }
     private val _homeViewStateLiveData = MutableLiveData<HomeViewState>()
     val homeViewStateLiveData: LiveData<HomeViewState>
         get() = _homeViewStateLiveData
@@ -81,13 +85,47 @@ class ToBuyViewModel : ViewModel() {
                 }
             }
             HomeViewState.Sort.CATEGORY -> {
-                // implement me
+                var currentCategoryId = "no_id"
+                items.sortedBy {
+                    it.categoryEntity?.name ?: CategoryEntity.DEFAULT_CATEGORY_ID
+                }.forEach { item ->
+                    if (item.itemEntity.categoryId != currentCategoryId) {
+                        currentCategoryId = item.itemEntity.categoryId
+                        val headerItem = HomeViewState.DataItem(
+                            data = item.categoryEntity?.name ?: CategoryEntity.DEFAULT_CATEGORY_ID,
+                            isHeader = true
+                        )
+
+                        dataList.add(headerItem)
+                    }
+
+                    val dataItem = HomeViewState.DataItem(data = item)
+                    dataList.add(dataItem)
+                }
             }
             HomeViewState.Sort.OLDEST -> {
-                // implement me
+                val headerItem = HomeViewState.DataItem(
+                    data = "Oldest",
+                    isHeader = true
+                )
+                dataList.add(headerItem)
+
+                items.sortedBy { it.itemEntity.createdAt }.forEach {
+                    val dataItem = HomeViewState.DataItem(data = it)
+                    dataList.add(dataItem)
+                }
             }
             HomeViewState.Sort.NEWEST -> {
-                // implement me
+                val headerItem = HomeViewState.DataItem(
+                    data = "Newest",
+                    isHeader = true
+                )
+                dataList.add(headerItem)
+
+                items.sortedByDescending { it.itemEntity.createdAt }.forEach {
+                    val dataItem = HomeViewState.DataItem(data = it)
+                    dataList.add(dataItem)
+                }
             }
         }
 

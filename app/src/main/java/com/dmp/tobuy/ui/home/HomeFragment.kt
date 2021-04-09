@@ -1,19 +1,23 @@
 package com.dmp.tobuy.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.airbnb.epoxy.EpoxyTouchHelper
 import com.dmp.tobuy.R
 import com.dmp.tobuy.database.entity.ItemEntity
 import com.dmp.tobuy.databinding.FragmentHomeBinding
 import com.dmp.tobuy.ui.BaseFragment
+import com.dmp.tobuy.ui.home.bottomsheet.SortOrderBottomSheetDialogFragment
 
 class HomeFragment : BaseFragment(), ItemEntityInterface {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +58,19 @@ class HomeFragment : BaseFragment(), ItemEntityInterface {
                     sharedViewModel.deleteItem(itemThatWasRemoved.itemEntity)
                 }
             })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_home_fragment, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.menuItemSort) {
+            SortOrderBottomSheetDialogFragment().show(childFragmentManager, null)
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onResume() {
