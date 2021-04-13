@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         // Define top-level Fragments
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.profileFragment))
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.customizationFragment))
 
         // Setup top app bar
         setupActionBarWithNavController(navController, appBarConfiguration)

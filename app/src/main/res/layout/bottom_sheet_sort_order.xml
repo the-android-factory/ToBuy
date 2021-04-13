@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="Sort order"
-        android:textColor="?attr/colorOnSurface"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         android:layout_height="1dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="4dp"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorSecondary"
         app:layout_constraintTop_toBottomOf="@id/sortLabelTextView" />
 
     <com.airbnb.epoxy.EpoxyRecyclerView

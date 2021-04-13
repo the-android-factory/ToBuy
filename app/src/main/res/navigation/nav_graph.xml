@@ -17,9 +17,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.dmp.tobuy.ui.profile.ProfileFragment"
-        android:label="Profile"
+        android:id="@+id/customizationFragment"
+        android:name="com.dmp.tobuy.ui.customization.CustomizationFragment"
+        android:label="Customization"
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment_to_addCategoryEntityFragment"
@@ -42,7 +42,7 @@
 
     <fragment
         android:id="@+id/addCategoryEntityFragment"
-        android:name="com.dmp.tobuy.ui.profile.AddCategoryFragment"
+        android:name="com.dmp.tobuy.ui.customization.AddCategoryFragment"
         android:label="Add Category"
         tools:layout="@layout/fragment_add_category">
 

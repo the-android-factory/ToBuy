@@ -9,10 +9,11 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
         app:cardBackgroundColor="?attr/colorSurface"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="?attr/colorPrimary"
+        app:strokeColor="?attr/colorOnSurface"
         app:strokeWidth="1dp">
 
         <androidx.appcompat.widget.AppCompatTextView

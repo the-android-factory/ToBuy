@@ -36,7 +36,7 @@ class HomeFragment : BaseFragment(), ItemEntityInterface {
         }
 
         val controller = HomeEpoxyController(this)
-        binding.epoxyRecyclerView.setController(controller)
+        binding.epoxyRecyclerView.setControllerAndBuildModels(controller)
 
         sharedViewModel.homeViewStateLiveData.observe(viewLifecycleOwner) { viewState ->
             controller.viewState = viewState
@@ -90,7 +90,8 @@ class HomeFragment : BaseFragment(), ItemEntityInterface {
     }
 
     override fun onItemSelected(itemEntity: ItemEntity) {
-        val navDirections = HomeFragmentDirections.actionHomeFragmentToAddItemEntityFragment(itemEntity.id)
+        val navDirections =
+            HomeFragmentDirections.actionHomeFragmentToAddItemEntityFragment(itemEntity.id)
         navigateViaNavGraph(navDirections)
     }
 

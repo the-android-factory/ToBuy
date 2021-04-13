@@ -82,16 +82,12 @@ class AddItemEntityFragment : BaseFragment() {
                 Toast.makeText(requireActivity(), "Item saved!", Toast.LENGTH_SHORT).show()
                 binding.titleEditText.text = null
                 binding.titleEditText.requestFocus()
-                mainActivity.showKeyboard()
 
                 binding.descriptionEditText.text = null
                 binding.radioGroup.check(R.id.radioButtonLow)
+                binding.quantitySeekBar.progress = 1
             }
         }
-
-        // Show keyboard and default select our Title EditText
-        mainActivity.showKeyboard()
-        binding.titleEditText.requestFocus()
 
         // Setup screen if we are in edit mode
         selectedItemEntity?.let { itemEntity ->

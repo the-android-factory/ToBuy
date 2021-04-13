@@ -10,9 +10,9 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/customizationFragment"
         android:enabled="true"
-        android:icon="@drawable/ic_person_24"
-        android:title="Profile"
+        android:icon="@drawable/ic_customization_24"
+        android:title="Customization"
         app:showAsAction="always" />
 </menu>

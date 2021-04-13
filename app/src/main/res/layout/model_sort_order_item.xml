@@ -9,13 +9,25 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="?attr/colorOnSurface"
+        android:layout_marginEnd="6dp"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="16sp"
         android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Category" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:background="?attr/colorSecondary"
+        app:layout_constraintBottom_toBottomOf="@id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
