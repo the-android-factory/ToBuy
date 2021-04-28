@@ -20,10 +20,13 @@
         android:id="@+id/customizationFragment"
         android:name="com.dmp.tobuy.ui.customization.CustomizationFragment"
         android:label="Customization"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_addCategoryEntityFragment"
             app:destination="@id/addCategoryEntityFragment" />
+        <action
+            android:id="@+id/action_customizationFragment_to_customColorFragment"
+            app:destination="@id/customColorFragment" />
     </fragment>
 
     <fragment
@@ -51,6 +54,20 @@
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/customColorFragment"
+        android:name="com.dmp.tobuy.ui.color.CustomColorPickerFragment"
+        android:label="Custom color picker"
+        tools:layout="@layout/fragment_custom_color_picker">
+
+        <argument
+            android:name="priorityName"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
 
     </fragment>
 

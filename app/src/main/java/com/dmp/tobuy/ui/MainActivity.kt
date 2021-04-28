@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.dmp.tobuy.R
+import com.dmp.tobuy.SharedPrefUtil
 import com.dmp.tobuy.arch.ToBuyViewModel
 import com.dmp.tobuy.database.AppDatabase
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        
+        SharedPrefUtil.init(this)
 
         val viewModel: ToBuyViewModel by viewModels()
         viewModel.init(AppDatabase.getDatabase(this))

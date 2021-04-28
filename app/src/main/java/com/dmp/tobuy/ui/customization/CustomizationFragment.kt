@@ -39,6 +39,12 @@ class CustomizationFragment: BaseFragment(), CategoryEntityInterface {
         sharedViewModel.categoryEntitiesLiveData.observe(viewLifecycleOwner) { categoryEntityList ->
             profileEpoxyController.categories = categoryEntityList
         }
+
+        binding.epoxyRecyclerView.postDelayed({
+            navigateViaNavGraph(CustomizationFragmentDirections
+                .actionCustomizationFragmentToCustomColorFragment("Medium")
+            )
+        }, 500)
     }
 
     override fun onCategoryEmptyStateClicked() {
